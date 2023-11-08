@@ -64,9 +64,9 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
-    // Hilt
-    implementation("com.google.dagger:hilt-android:2.48.1")
-    ksp("com.google.dagger:hilt-android-compiler:2.48.1")
+    //Dagger
+    implementation("com.google.dagger:dagger:2.48.1")
+    ksp("com.google.dagger:dagger-compiler:2.48.1")
 
     implementation("androidx.activity:activity-ktx:1.8.0")
     implementation("androidx.fragment:fragment-ktx:1.6.2")

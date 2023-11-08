@@ -4,5 +4,10 @@ data class Vehicle(
     val brand: String,
     val motorPower: String,
     val capacity: Int,
-    val image: Int
-)
+    val image: String,
+    var id: Int = UNDEFINED_ID
+) {
+    companion object {
+        const val UNDEFINED_ID = 0
+    }
+}
