@@ -1,10 +1,10 @@
 package com.shchurovsi.carspecapp.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.shchurovsi.carspecapp.VehicleApplication
-import com.shchurovsi.carspecapp.databinding.ActivityVehicleBinding
+import com.shchurovsi.carspecapp.databinding.ActivityMainBinding
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val binding by lazy {
-        ActivityVehicleBinding.inflate(layoutInflater)
+        ActivityMainBinding.inflate(layoutInflater)
     }
 
     @Inject
