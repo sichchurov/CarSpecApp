@@ -3,12 +3,11 @@ package com.shchurovsi.carspecapp.presentation
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.shchurovsi.carspecapp.R
 import com.shchurovsi.carspecapp.VehicleApplication
 import com.shchurovsi.carspecapp.databinding.ActivityVehicleBinding
 import javax.inject.Inject
 
-class VehicleActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private val appComponent by lazy {
         (application as VehicleApplication).applicationComponent.activityComponent().create()

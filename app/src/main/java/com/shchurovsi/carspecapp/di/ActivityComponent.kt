@@ -1,6 +1,6 @@
 package com.shchurovsi.carspecapp.di
 
-import com.shchurovsi.carspecapp.presentation.VehicleActivity
+import com.shchurovsi.carspecapp.presentation.MainActivity
 import dagger.Subcomponent
 
 @ActivityScope
@@ -12,5 +12,5 @@ interface ActivityComponent {
         fun create(): ActivityComponent
     }
 
-    fun inject(activity: VehicleActivity)
+    fun inject(activity: MainActivity)
 }
