@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Car Spec App</string>
+    <string name="vehicle_image">vehicle_image</string>
 </resources>
