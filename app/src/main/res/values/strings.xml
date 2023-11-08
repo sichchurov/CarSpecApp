@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Car Spec App</string>
     <string name="vehicle_image">vehicle_image</string>
+    <string name="add_vehicle_button">Add Vehicle Button</string>
+    <string name="brand">Brand</string>
+    <string name="vehicle_brand">Vehicle brand</string>
+    <string name="vehicle_capacity">Vehicle capacity</string>
+    <string name="motor_power">Motor power</string>
+    <string name="add">Add</string>
 </resources>
