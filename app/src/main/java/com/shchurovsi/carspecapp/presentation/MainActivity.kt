@@ -3,13 +3,17 @@ package com.shchurovsi.carspecapp.presentation
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
+import com.shchurovsi.carspecapp.R
 import com.shchurovsi.carspecapp.VehicleApplication
 import com.shchurovsi.carspecapp.databinding.ActivityMainBinding
+import com.shchurovsi.carspecapp.presentation.fragments.ItemVehicleFragment
+import com.shchurovsi.carspecapp.presentation.fragments.VehicleListViewModel
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    private val appComponent by lazy {
+    val appComponent by lazy {
         (application as VehicleApplication).applicationComponent.activityComponent().create()
     }
 
@@ -20,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private val viewModel by viewModels<VehicleViewModel> { viewModelFactory }
+    private val viewModel by viewModels<VehicleListViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponent.inject(this)
@@ -28,6 +32,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-
+        binding.myFAB.setOnClickListener {
+            supportFragmentManager.popBackStack()
+            supportFragmentManager.commit {
+                replace(
+                    R.id.fragment_container_view,
+                    ItemVehicleFragment.newInstanceAddItemVehicleFragment()
+                )
+                addToBackStack(null)
+            }
+        }
     }
 }

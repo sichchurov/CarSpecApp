@@ -1,4 +1,4 @@
-package com.shchurovsi.carspecapp.presentation
+package com.shchurovsi.carspecapp.presentation.fragments
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +12,7 @@ import com.shchurovsi.carspecapp.domain.usecases.GetVehicleListUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class VehicleViewModel @Inject constructor(
+class VehicleListViewModel @Inject constructor(
     private val adVehicleItemUseCase: AdVehicleItemUseCase,
     private val editVehicleItemUseCase: EditVehicleItemUseCase,
     private val getVehicleItemUseCase: GetVehicleItemUseCase,

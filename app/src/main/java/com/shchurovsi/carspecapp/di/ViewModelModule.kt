@@ -1,7 +1,8 @@
 package com.shchurovsi.carspecapp.di
 
 import androidx.lifecycle.ViewModel
-import com.shchurovsi.carspecapp.presentation.VehicleViewModel
+import com.shchurovsi.carspecapp.presentation.fragments.ItemVehicleViewModel
+import com.shchurovsi.carspecapp.presentation.fragments.VehicleListViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -10,8 +11,13 @@ import dagger.multibindings.IntoMap
 @Module
 interface ViewModelModule {
 
-    @ViewModelKey(VehicleViewModel::class)
+    @ViewModelKey(VehicleListViewModel::class)
     @IntoMap
     @Binds
-    fun bindVehicleViewModel(impl: VehicleViewModel): ViewModel
+    fun bindVehicleViewModel(impl: VehicleListViewModel): ViewModel
+
+    @ViewModelKey(ItemVehicleViewModel::class)
+    @IntoMap
+    @Binds
+    fun bindItemVehicleViewModel(impl: ItemVehicleViewModel): ViewModel
 }
