@@ -4,7 +4,7 @@ import com.shchurovsi.carspecapp.presentation.VehicleActivity
 import dagger.Subcomponent
 
 @ActivityScope
-@Subcomponent
+@Subcomponent(modules = [ViewModelModule::class])
 interface ActivityComponent {
 
     @Subcomponent.Factory

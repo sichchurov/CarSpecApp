@@ -1,6 +1,5 @@
 package com.shchurovsi.carspecapp.data
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.shchurovsi.carspecapp.data.local.db.VehicleDao
