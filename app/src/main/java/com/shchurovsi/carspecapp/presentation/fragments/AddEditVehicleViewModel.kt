@@ -1,9 +1,10 @@
 package com.shchurovsi.carspecapp.presentation.fragments
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.app.Application
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.shchurovsi.carspecapp.R
 import com.shchurovsi.carspecapp.domain.entities.Vehicle
 import com.shchurovsi.carspecapp.domain.usecases.AdVehicleItemUseCase
 import com.shchurovsi.carspecapp.domain.usecases.EditVehicleItemUseCase
@@ -12,24 +13,29 @@ import com.shchurovsi.carspecapp.domain.usecases.GetVehicleListUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class VehicleListViewModel @Inject constructor(
+class AddEditVehicleViewModel @Inject constructor(
     private val adVehicleItemUseCase: AdVehicleItemUseCase,
     private val editVehicleItemUseCase: EditVehicleItemUseCase,
     private val getVehicleItemUseCase: GetVehicleItemUseCase,
-    private val getVehicleListUseCase: GetVehicleListUseCase
+    private val getVehicleListUseCase: GetVehicleListUseCase,
+    private val application: Application
 ) : ViewModel() {
 
-    private val _vehicleList = getVehicleListUseCase()
-    val vehicleList: LiveData<List<Vehicle>>
-        get() = _vehicleList
-
-
-
-
-
-    suspend fun addVehicleItem(vehicle: Vehicle) {
+    fun addVehicle(
+        brand: String,
+        motorPower: String,
+        capacity: String,
+        image: String
+    ) {
         viewModelScope.launch {
-            adVehicleItemUseCase(vehicle)
+            adVehicleItemUseCase.invoke(
+                Vehicle(
+                    application.getString(R.string.brand, brand),
+                    application.getString(R.string.motor_power, motorPower),
+                    application.getString(R.string.capacity, capacity),
+                    image
+                )
+            )
         }
     }
 }

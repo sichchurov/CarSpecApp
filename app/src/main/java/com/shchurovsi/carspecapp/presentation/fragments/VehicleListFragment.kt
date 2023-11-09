@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.shchurovsi.carspecapp.R
-import com.shchurovsi.carspecapp.databinding.FragmentItemVehicleBinding
 import com.shchurovsi.carspecapp.databinding.FragmentVehicleListBinding
 import com.shchurovsi.carspecapp.presentation.MainActivity
 import com.shchurovsi.carspecapp.presentation.ViewModelFactory
+import com.shchurovsi.carspecapp.presentation.vehicleadapter.VehicleAdapter
 import javax.inject.Inject
 
 class VehicleListFragment : Fragment() {
@@ -20,6 +20,10 @@ class VehicleListFragment : Fragment() {
     private var _binding: FragmentVehicleListBinding? = null
     private val binding: FragmentVehicleListBinding
         get() = _binding ?: throw RuntimeException("ItemVehicleFragment is null!")
+
+    private val vehicleAdapter by lazy {
+        VehicleAdapter()
+    }
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -38,12 +42,18 @@ class VehicleListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupRecycler()
+
+        viewModel.vehicleList.observe(viewLifecycleOwner) {
+            vehicleAdapter.submitList(it)
+        }
+
         binding.myFAB.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
             requireActivity().supportFragmentManager.commit {
                 replace(
                     R.id.fragment_container_view,
-                    ItemVehicleFragment.newInstanceAddItemVehicleFragment()
+                    AddEditVehicleFragment.newInstanceAddItemVehicleFragment()
                 )
                 addToBackStack(null)
             }
@@ -51,11 +61,14 @@ class VehicleListFragment : Fragment() {
 
     }
 
+    private fun setupRecycler() {
+        binding.recycler.adapter = vehicleAdapter
+    }
+
     override fun onAttach(context: Context) {
         (activity as MainActivity).appComponent.inject(this)
         super.onAttach(context)
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

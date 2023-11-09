@@ -37,7 +37,7 @@
             app:layout_constraintLeft_toRightOf="@+id/iv_vehicle_image"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="TITLE" />
+            android:text="@string/brand" />
 
         <TextView
             android:id="@+id/tv_capacity"

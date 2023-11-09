@@ -9,6 +9,6 @@ data class VehicleDbModel(
     val id: Int,
     val brand: String,
     val motorPower: String,
-    val capacity: Int,
+    val capacity: String,
     val image: String
 )

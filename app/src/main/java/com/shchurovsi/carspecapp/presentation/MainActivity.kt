@@ -3,11 +3,8 @@ package com.shchurovsi.carspecapp.presentation
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.commit
-import com.shchurovsi.carspecapp.R
 import com.shchurovsi.carspecapp.VehicleApplication
 import com.shchurovsi.carspecapp.databinding.ActivityMainBinding
-import com.shchurovsi.carspecapp.presentation.fragments.ItemVehicleFragment
 import com.shchurovsi.carspecapp.presentation.fragments.VehicleListViewModel
 import javax.inject.Inject
 

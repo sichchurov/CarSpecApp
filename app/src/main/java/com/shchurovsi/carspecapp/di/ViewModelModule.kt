@@ -1,7 +1,7 @@
 package com.shchurovsi.carspecapp.di
 
 import androidx.lifecycle.ViewModel
-import com.shchurovsi.carspecapp.presentation.fragments.ItemVehicleViewModel
+import com.shchurovsi.carspecapp.presentation.fragments.AddEditVehicleViewModel
 import com.shchurovsi.carspecapp.presentation.fragments.VehicleListViewModel
 import dagger.Binds
 import dagger.Module
@@ -16,8 +16,8 @@ interface ViewModelModule {
     @Binds
     fun bindVehicleViewModel(impl: VehicleListViewModel): ViewModel
 
-    @ViewModelKey(ItemVehicleViewModel::class)
+    @ViewModelKey(AddEditVehicleViewModel::class)
     @IntoMap
     @Binds
-    fun bindItemVehicleViewModel(impl: ItemVehicleViewModel): ViewModel
+    fun bindItemVehicleViewModel(impl: AddEditVehicleViewModel): ViewModel
 }
