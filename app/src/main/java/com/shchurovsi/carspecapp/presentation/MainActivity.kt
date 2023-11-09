@@ -31,16 +31,5 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
-        binding.myFAB.setOnClickListener {
-            supportFragmentManager.popBackStack()
-            supportFragmentManager.commit {
-                replace(
-                    R.id.fragment_container_view,
-                    ItemVehicleFragment.newInstanceAddItemVehicleFragment()
-                )
-                addToBackStack(null)
-            }
-        }
     }
 }
