@@ -11,7 +11,7 @@ import com.shchurovsi.carspecapp.domain.entities.Vehicle
 @Dao
 interface VehicleDao {
 
-    @Query("SELECT * FROM vehicle_info_list")
+    @Query("SELECT * FROM vehicle_info_list ORDER BY brand")
     fun getVehicleList(): LiveData<List<VehicleDbModel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
