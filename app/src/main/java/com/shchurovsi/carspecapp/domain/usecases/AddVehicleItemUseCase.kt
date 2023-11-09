@@ -4,7 +4,7 @@ import com.shchurovsi.carspecapp.domain.VehicleRepository
 import com.shchurovsi.carspecapp.domain.entities.Vehicle
 import javax.inject.Inject
 
-class AdVehicleItemUseCase @Inject constructor(
+class AddVehicleItemUseCase @Inject constructor(
     private val repository: VehicleRepository
 ) {
     suspend operator fun invoke(vehicle: Vehicle) {

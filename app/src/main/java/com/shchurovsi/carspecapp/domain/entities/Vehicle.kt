@@ -3,7 +3,7 @@ package com.shchurovsi.carspecapp.domain.entities
 data class Vehicle(
     val brand: String,
     val motorPower: String,
-    val capacity: String,
+    val seats: String,
     val image: String,
     var id: Int = UNDEFINED_ID
 ) {

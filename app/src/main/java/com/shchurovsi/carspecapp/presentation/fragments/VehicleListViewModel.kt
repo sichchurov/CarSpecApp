@@ -1,11 +1,10 @@
 package com.shchurovsi.carspecapp.presentation.fragments
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shchurovsi.carspecapp.domain.entities.Vehicle
-import com.shchurovsi.carspecapp.domain.usecases.AdVehicleItemUseCase
+import com.shchurovsi.carspecapp.domain.usecases.AddVehicleItemUseCase
 import com.shchurovsi.carspecapp.domain.usecases.EditVehicleItemUseCase
 import com.shchurovsi.carspecapp.domain.usecases.GetVehicleItemUseCase
 import com.shchurovsi.carspecapp.domain.usecases.GetVehicleListUseCase
@@ -13,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class VehicleListViewModel @Inject constructor(
-    private val adVehicleItemUseCase: AdVehicleItemUseCase,
+    private val addVehicleItemUseCase: AddVehicleItemUseCase,
     private val editVehicleItemUseCase: EditVehicleItemUseCase,
     private val getVehicleItemUseCase: GetVehicleItemUseCase,
     private val getVehicleListUseCase: GetVehicleListUseCase
@@ -29,7 +28,7 @@ class VehicleListViewModel @Inject constructor(
 
     suspend fun addVehicleItem(vehicle: Vehicle) {
         viewModelScope.launch {
-            adVehicleItemUseCase(vehicle)
+            addVehicleItemUseCase(vehicle)
         }
     }
 }

@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.shchurovsi.carspecapp.data.local.model.VehicleDbModel
 
-@Database(entities = [VehicleDbModel::class], version = 1, exportSchema = false)
+@Database(entities = [VehicleDbModel::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getVehicleDao(): VehicleDao

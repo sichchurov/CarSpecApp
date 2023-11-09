@@ -37,10 +37,10 @@
             app:layout_constraintLeft_toRightOf="@+id/iv_vehicle_image"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@string/brand" />
+            tools:text="Vehicle Brand" />
 
         <TextView
-            android:id="@+id/tv_capacity"
+            android:id="@+id/tv_seats"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -52,7 +52,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/iv_vehicle_image"
             app:layout_constraintTop_toBottomOf="@+id/tv_brand"
-            tools:text="Capacity" />
+            tools:text="Seats" />
 
         <TextView
             android:id="@+id/tv_motor_power"
@@ -65,7 +65,7 @@
             android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_vehicle_image"
-            app:layout_constraintTop_toBottomOf="@+id/tv_capacity"
+            app:layout_constraintTop_toBottomOf="@+id/tv_seats"
             tools:text="Motor power" />
 
 

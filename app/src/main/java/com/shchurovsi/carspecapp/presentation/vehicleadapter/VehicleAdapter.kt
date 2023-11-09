@@ -17,7 +17,7 @@ class VehicleAdapter : ListAdapter<Vehicle, VehicleViewHolder>(VehicleDiffUtil) 
         val vehicle = getItem(position)
         holder.binding.apply {
             tvBrand.text = vehicle.brand
-            tvCapacity.text = vehicle.capacity
+            tvSeats.text = vehicle.seats
             tvMotorPower.text = vehicle.motorPower
         }
     }

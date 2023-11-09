@@ -22,7 +22,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_capacity"
+        android:id="@+id/til_seats"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -31,10 +31,11 @@
         app:layout_constraintTop_toBottomOf="@id/til_brand">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tit_capacity"
+            android:id="@+id/tit_seats"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/vehicle_capacity_hint" />
+            android:hint="@string/vehicle_seats_hint"
+            android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -44,13 +45,14 @@
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_capacity">
+        app:layout_constraintTop_toBottomOf="@id/til_seats">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tit_motor_power"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/motor_power_hint" />
+            android:hint="@string/motor_power_hint"
+            android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
