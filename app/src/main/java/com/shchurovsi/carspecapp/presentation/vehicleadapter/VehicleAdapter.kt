@@ -3,6 +3,7 @@ package com.shchurovsi.carspecapp.presentation.vehicleadapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
+import com.bumptech.glide.Glide
 import com.shchurovsi.carspecapp.databinding.ItemVehicleBinding
 import com.shchurovsi.carspecapp.domain.entities.Vehicle
 
@@ -19,6 +20,7 @@ class VehicleAdapter : ListAdapter<Vehicle, VehicleViewHolder>(VehicleDiffUtil) 
             tvBrand.text = vehicle.brand
             tvSeats.text = vehicle.seats
             tvMotorPower.text = vehicle.motorPower
+            Glide.with(root).load(vehicle.image).into(ivVehicleImage)
         }
     }
 }

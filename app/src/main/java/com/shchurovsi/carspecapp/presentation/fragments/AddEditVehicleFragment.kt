@@ -1,10 +1,13 @@
 package com.shchurovsi.carspecapp.presentation.fragments
 
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.shchurovsi.carspecapp.R
@@ -27,6 +30,8 @@ class AddEditVehicleFragment : Fragment() {
 
     private var screenMode: String = UNDEFINED_EXTRA_VALUE
     private var vehicleItemId: Int = UNDEFINED_ID
+
+    private var uri: Uri? = null
 
     override fun onAttach(context: Context) {
         (activity as MainActivity).appComponent.inject(this)
@@ -99,13 +104,26 @@ class AddEditVehicleFragment : Fragment() {
     }
 
     private fun launchAddMode() {
+        val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
+            uri = it
+            try{
+                Log.d("TAG", "URI: $uri")
+            }catch(e:Exception){
+                e.printStackTrace()
+            }
+
+        }
+
         binding.apply {
+            btAddImage.setOnClickListener {
+                galleryLauncher.launch("image/*")
+            }
             btSave.setOnClickListener {
                 viewModel.addVehicle(
                     titBrand.text.toString(),
                     titMotorPower.text.toString(),
                     titSeats.text.toString(),
-                    ""
+                    uri.toString()
                 )
             }
 

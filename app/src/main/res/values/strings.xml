@@ -14,4 +14,5 @@
     <string name="cancel">Cancel</string>
     <string name="empty_field_error">%1$s field should not be empty</string>
     <string name="only_digits_field_error">Field should contain only digits</string>
+    <string name="add_image">Add image</string>
 </resources>
