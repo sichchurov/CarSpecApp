@@ -56,7 +56,7 @@ class AddEditVehicleViewModel @Inject constructor(
                         seats = seats,
                         image = image
                     )
-                    editVehicleItemUseCase(updatedVehicle)
+                    editVehicleItemUseCase.invoke(updatedVehicle)
                     finishWork()
                 }
             }

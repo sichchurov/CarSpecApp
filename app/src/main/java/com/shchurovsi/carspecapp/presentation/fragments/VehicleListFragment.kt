@@ -30,6 +30,11 @@ class VehicleListFragment : Fragment() {
 
     private val viewModel: VehicleListViewModel by viewModels { viewModelFactory }
 
+    override fun onAttach(context: Context) {
+        (activity as MainActivity).appComponent.inject(this)
+        super.onAttach(context)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,13 +46,18 @@ class VehicleListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupRecycler()
+        observe()
+        launchFragment()
+    }
 
+    private fun observe() {
         viewModel.vehicleList.observe(viewLifecycleOwner) {
             vehicleAdapter.submitList(it)
         }
+    }
 
+    private fun launchFragment() {
         binding.myFAB.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
             requireActivity().supportFragmentManager.commit {
@@ -58,16 +68,10 @@ class VehicleListFragment : Fragment() {
                 addToBackStack(null)
             }
         }
-
     }
 
     private fun setupRecycler() {
         binding.recycler.adapter = vehicleAdapter
-    }
-
-    override fun onAttach(context: Context) {
-        (activity as MainActivity).appComponent.inject(this)
-        super.onAttach(context)
     }
 
     override fun onDestroyView() {
