@@ -59,13 +59,15 @@ class VehicleListFragment : Fragment() {
 
     private fun launchFragment() {
         binding.myFAB.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
-            requireActivity().supportFragmentManager.commit {
-                replace(
-                    R.id.fragment_container_view,
-                    AddEditVehicleFragment.newInstanceAddItemVehicleFragment()
-                )
-                addToBackStack(null)
+            requireActivity().apply {
+                supportFragmentManager.popBackStack()
+                supportFragmentManager.commit {
+                    replace(
+                        R.id.fragment_container_view,
+                        AddEditVehicleFragment.newInstanceAddItemVehicleFragment()
+                    )
+                    addToBackStack(null)
+                }
             }
         }
     }

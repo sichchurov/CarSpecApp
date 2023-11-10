@@ -3,7 +3,6 @@ package com.shchurovsi.carspecapp.presentation.fragments
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -106,18 +105,13 @@ class AddEditVehicleFragment : Fragment() {
     private fun launchAddMode() {
         val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
             uri = it
-            try{
-                Log.d("TAG", "URI: $uri")
-            }catch(e:Exception){
-                e.printStackTrace()
-            }
-
         }
 
         binding.apply {
             btAddImage.setOnClickListener {
                 galleryLauncher.launch("image/*")
             }
+
             btSave.setOnClickListener {
                 viewModel.addVehicle(
                     titBrand.text.toString(),
@@ -191,7 +185,7 @@ class AddEditVehicleFragment : Fragment() {
 
     companion object {
         private const val SCREEN_MODE = "extra_mode"
-        private const val VEHICLE_ITEM_ID = "extra_todo_item_id"
+        private const val VEHICLE_ITEM_ID = "vehicle_item_id"
         private const val MODE_ADD = "mode_add"
         private const val MODE_EDIT = "mode_edit"
         private const val UNDEFINED_EXTRA_VALUE = ""
