@@ -7,11 +7,9 @@ import com.shchurovsi.carspecapp.domain.usecases.GetVehicleListUseCase
 import javax.inject.Inject
 
 class VehicleListViewModel @Inject constructor(
-    getVehicleListUseCase: GetVehicleListUseCase
+    private val getVehicleListUseCase: GetVehicleListUseCase
 ) : ViewModel() {
 
-    private val _vehicleList = getVehicleListUseCase()
     val vehicleList: LiveData<List<Vehicle>>
-        get() = _vehicleList
-
+        get() = getVehicleListUseCase()
 }
