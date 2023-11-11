@@ -10,7 +10,6 @@ import com.shchurovsi.carspecapp.domain.entities.Vehicle
 import com.shchurovsi.carspecapp.domain.usecases.AddVehicleItemUseCase
 import com.shchurovsi.carspecapp.domain.usecases.EditVehicleItemUseCase
 import com.shchurovsi.carspecapp.domain.usecases.GetVehicleItemUseCase
-import com.shchurovsi.carspecapp.domain.usecases.GetVehicleListUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,7 +17,6 @@ class AddEditVehicleViewModel @Inject constructor(
     private val addVehicleItemUseCase: AddVehicleItemUseCase,
     private val editVehicleItemUseCase: EditVehicleItemUseCase,
     private val getVehicleItemUseCase: GetVehicleItemUseCase,
-    private val getVehicleListUseCase: GetVehicleListUseCase,
     private val application: Application
 ) : ViewModel() {
 

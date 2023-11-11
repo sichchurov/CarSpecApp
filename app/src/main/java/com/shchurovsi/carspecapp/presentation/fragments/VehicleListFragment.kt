@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.shchurovsi.carspecapp.R
 import com.shchurovsi.carspecapp.databinding.FragmentVehicleListBinding
@@ -57,6 +59,34 @@ class VehicleListFragment : Fragment() {
         vehicleAdapter.setOnItemClickListener { vehicle ->
             showBrandImageDialog(vehicle)
         }
+        setupSwipeListener()
+    }
+
+    private fun setupSwipeListener() {
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.layoutPosition
+                val vehicleItem = vehicleAdapter.currentList[position]
+                requireActivity().apply {
+                    supportFragmentManager.popBackStack()
+                    supportFragmentManager.commit {
+                        replace(
+                            R.id.fragment_container_view,
+                            AddEditVehicleFragment.newInstanceEditItemVehicleFragment(vehicleItem.id)
+                        )
+                        addToBackStack(null)
+                    }
+                }
+            }
+        }).attachToRecyclerView(binding.recycler)
     }
 
     private fun showBrandImageDialog(vehicle: Vehicle) {

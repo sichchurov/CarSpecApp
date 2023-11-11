@@ -32,6 +32,10 @@ class AddEditVehicleFragment : Fragment() {
 
     private var uri: Uri? = null
 
+    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
+        uri = it
+    }
+
     override fun onAttach(context: Context) {
         (activity as MainActivity).appComponent.inject(this)
         super.onAttach(context)
@@ -76,7 +80,7 @@ class AddEditVehicleFragment : Fragment() {
 
     private fun launchEditMode() {
 
-        binding.btSave.text = getString(R.string.update)
+        binding.btSaveUpdate.text = getString(R.string.update)
 
         viewModel.getVehicleItem(vehicleItemId)
 
@@ -87,12 +91,16 @@ class AddEditVehicleFragment : Fragment() {
                 titSeats.setText(it.seats)
             }
 
-            btSave.setOnClickListener {
+            btAddImage.setOnClickListener {
+                galleryLauncher.launch("image/*")
+            }
+
+            btSaveUpdate.setOnClickListener {
                 viewModel.editVehicle(
                     titBrand.text.toString(),
                     titMotorPower.text.toString(),
                     titSeats.text.toString(),
-                    ""
+                    uri.toString()
                 )
             }
 
@@ -103,16 +111,12 @@ class AddEditVehicleFragment : Fragment() {
     }
 
     private fun launchAddMode() {
-        val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
-            uri = it
-        }
-
         binding.apply {
             btAddImage.setOnClickListener {
                 galleryLauncher.launch("image/*")
             }
 
-            btSave.setOnClickListener {
+            btSaveUpdate.setOnClickListener {
                 viewModel.addVehicle(
                     titBrand.text.toString(),
                     titMotorPower.text.toString(),

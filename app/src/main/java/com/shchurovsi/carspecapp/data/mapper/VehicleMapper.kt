@@ -10,7 +10,8 @@ class VehicleMapper @Inject constructor() {
         brand = vehicleDbModel.brand,
         motorPower = vehicleDbModel.motorPower,
         seats = vehicleDbModel.seats,
-        image = vehicleDbModel.image
+        image = vehicleDbModel.image,
+        id = vehicleDbModel.id
     )
 
     fun mapEntityToDbModel(vehicle: Vehicle) = VehicleDbModel(
