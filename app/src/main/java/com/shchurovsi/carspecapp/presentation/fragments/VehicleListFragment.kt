@@ -1,19 +1,30 @@
 package com.shchurovsi.carspecapp.presentation.fragments
 
+import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.shchurovsi.carspecapp.R
 import com.shchurovsi.carspecapp.databinding.FragmentVehicleListBinding
+import com.shchurovsi.carspecapp.databinding.FullImageLayoutBinding
+import com.shchurovsi.carspecapp.domain.entities.Vehicle
 import com.shchurovsi.carspecapp.presentation.MainActivity
 import com.shchurovsi.carspecapp.presentation.ViewModelFactory
 import com.shchurovsi.carspecapp.presentation.vehicleadapter.VehicleAdapter
 import javax.inject.Inject
+
 
 class VehicleListFragment : Fragment() {
 
@@ -44,11 +55,31 @@ class VehicleListFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecycler()
         observe()
         launchFragment()
+
+        vehicleAdapter.setOnItemClickListener { vehicle ->
+            showCustomDialog(vehicle)
+        }
+    }
+
+    private fun showCustomDialog(vehicle: Vehicle) {
+        val binding = FullImageLayoutBinding.inflate(layoutInflater)
+
+        Glide.with(this)
+            .load(Uri.parse(vehicle.image))
+            .into(binding.vehicleFullImage)
+
+        Dialog(requireContext()).apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            addContentView(binding.root, FrameLayout.LayoutParams(550, 550))
+            show()
+        }
     }
 
     private fun observe() {
@@ -81,3 +112,4 @@ class VehicleListFragment : Fragment() {
         _binding = null
     }
 }
+
