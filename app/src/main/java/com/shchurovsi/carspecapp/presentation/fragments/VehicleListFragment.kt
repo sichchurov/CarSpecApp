@@ -1,17 +1,12 @@
 package com.shchurovsi.carspecapp.presentation.fragments
 
-import android.annotation.SuppressLint
-import android.app.Dialog
+import android.app.AlertDialog
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
@@ -24,7 +19,6 @@ import com.shchurovsi.carspecapp.presentation.MainActivity
 import com.shchurovsi.carspecapp.presentation.ViewModelFactory
 import com.shchurovsi.carspecapp.presentation.vehicleadapter.VehicleAdapter
 import javax.inject.Inject
-
 
 class VehicleListFragment : Fragment() {
 
@@ -55,29 +49,24 @@ class VehicleListFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecycler()
         observe()
         launchFragment()
-
         vehicleAdapter.setOnItemClickListener { vehicle ->
-            showCustomDialog(vehicle)
+            showBrandImageDialog(vehicle)
         }
     }
 
-    private fun showCustomDialog(vehicle: Vehicle) {
+    private fun showBrandImageDialog(vehicle: Vehicle) {
         val binding = FullImageLayoutBinding.inflate(layoutInflater)
 
-        Glide.with(this)
-            .load(Uri.parse(vehicle.image))
-            .into(binding.vehicleFullImage)
-
-        Dialog(requireContext()).apply {
-            requestWindowFeature(Window.FEATURE_NO_TITLE)
-            window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            addContentView(binding.root, FrameLayout.LayoutParams(550, 550))
+        AlertDialog.Builder(requireContext()).apply {
+            setView(binding.root)
+            Glide.with(this@VehicleListFragment)
+                .load(Uri.parse(vehicle.image))
+                .into(binding.vehicleFullImage)
             show()
         }
     }
@@ -112,4 +101,3 @@ class VehicleListFragment : Fragment() {
         _binding = null
     }
 }
-
