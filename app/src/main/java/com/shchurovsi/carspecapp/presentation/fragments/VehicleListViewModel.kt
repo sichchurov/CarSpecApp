@@ -13,15 +13,25 @@ class VehicleListViewModel @Inject constructor(
     private val getVehicleListByMotorPowerUseCase: GetVehicleListByMotorPowerUseCase
 ) : ViewModel() {
 
-    private var power = 0
+    private val _isFilterToggled = MutableLiveData(false)
+    val isFilterToggled: LiveData<Boolean>
+        get() = _isFilterToggled
 
     val vehicleList: LiveData<List<Vehicle>>
         get() = getVehicleListUseCase()
 
-    private val _vehicleListByMotorPower = MutableLiveData<List<Vehicle>>()
     val vehicleListByMotorPower: LiveData<List<Vehicle>>
-        get () = getVehicleListByMotorPowerUseCase(power)
+        get() = getVehicleListByMotorPowerUseCase(power.value ?: 0)
+
+    private val _power = MutableLiveData<Int>()
+    val power: LiveData<Int>
+        get() = _power
+
+    fun toggle(status: Boolean) {
+        _isFilterToggled.value = status
+    }
+
     fun filter(minMotorPower: Int) {
-       power = minMotorPower
+        _power.value = minMotorPower
     }
 }

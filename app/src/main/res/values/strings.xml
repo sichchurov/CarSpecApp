@@ -20,9 +20,12 @@
 
     <string-array name="motor_power_values">
         <item>Select motor power</item>
+        <item>50… and more</item>
         <item>70… and more</item>
         <item>110… and more</item>
         <item>150… and more</item>
         <item>195… and more</item>
+        <item>230… and more</item>
+        <item>450… and more</item>
     </string-array>
 </resources>

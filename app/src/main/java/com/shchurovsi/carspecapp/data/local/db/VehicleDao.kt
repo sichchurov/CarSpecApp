@@ -13,7 +13,7 @@ interface VehicleDao {
     @Query("SELECT * FROM vehicle_info_list ORDER BY brand")
     fun getVehicleList(): LiveData<List<VehicleDbModel>>
 
-    @Query("SELECT * FROM vehicle_info_list WHERE motorPower == :minMotorPower  ORDER BY brand")
+    @Query("SELECT * FROM vehicle_info_list WHERE motorPower >= :minMotorPower  ORDER BY brand")
     fun getVehicleListByMotorPower(minMotorPower: Int): LiveData<List<VehicleDbModel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
