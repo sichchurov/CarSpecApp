@@ -8,7 +8,7 @@ data class VehicleDbModel(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val brand: String,
-    val motorPower: String,
+    val motorPower: Int,
     val seats: String,
     val image: String
 )

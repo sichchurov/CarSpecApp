@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Car Spec App</string>
     <string name="vehicle_image">vehicle_image</string>
-    <string name="add_vehicle_button">Add Vehicle Button</string>
-    <string name="brand">Vehicle Brand: "%1$s"</string>
-    <string name="motor_power">Motor Power: "%1$s Hp"</string>
-    <string name="seats">Seats: "%1$s"</string>
+    <string name="add_vehicle_button">Add Vehicle</string>
+    <string name="brand">Brand:"</string>
+    <string name="motor_power">Motor Power:"</string>
+    <string name="seats">Seats:"</string>
     <string name="vehicle_brand_hint">Vehicle brand</string>
     <string name="vehicle_seats_hint">Vehicle seats</string>
     <string name="motor_power_hint">Motor power</string>
@@ -16,4 +16,13 @@
     <string name="only_digits_field_error">Field should contain only digits</string>
     <string name="add_image">Add image</string>
     <string name="vehicle_full_image">Vehicle Full Image</string>
+    <string name="toggle_filter">Toggle filter</string>
+
+    <string-array name="motor_power_values">
+        <item>Select motor power</item>
+        <item>70… and more</item>
+        <item>110… and more</item>
+        <item>150… and more</item>
+        <item>195… and more</item>
+    </string-array>
 </resources>

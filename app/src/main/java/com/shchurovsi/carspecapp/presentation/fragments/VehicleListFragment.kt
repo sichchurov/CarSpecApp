@@ -147,6 +147,12 @@ class VehicleListFragment : Fragment() {
     }
 
     private fun observe() {
+        if (binding.filterMode.isActivated) {
+            viewModel.filter(20)
+            viewModel.vehicleListByMotorPower.observe(viewLifecycleOwner) {
+                vehicleAdapter.submitList(it)
+            }
+        }
         viewModel.vehicleList.observe(viewLifecycleOwner) {
             vehicleAdapter.submitList(it)
         }

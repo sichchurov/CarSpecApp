@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.shchurovsi.carspecapp.R
 import com.shchurovsi.carspecapp.domain.entities.Vehicle
 import com.shchurovsi.carspecapp.domain.usecases.AddVehicleItemUseCase
 import com.shchurovsi.carspecapp.domain.usecases.EditVehicleItemUseCase
@@ -75,9 +74,9 @@ class AddEditVehicleViewModel @Inject constructor(
             viewModelScope.launch {
                 addVehicleItemUseCase.invoke(
                     Vehicle(
-                        application.getString(R.string.brand, brand),
-                        application.getString(R.string.motor_power, motorPower),
-                        application.getString(R.string.seats, seats),
+                        brand,
+                        motorPower,
+                        seats,
                         image
                     )
                 )
@@ -86,8 +85,8 @@ class AddEditVehicleViewModel @Inject constructor(
         }
     }
 
-    private fun parseField(inputField: String?): String {
-        return inputField?.trim() ?: EMPTY_STRING
+    private fun parseField(inputField: String): String {
+        return inputField.trim()
     }
 
     private fun validateFields(

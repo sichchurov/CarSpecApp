@@ -8,7 +8,7 @@ class VehicleMapper @Inject constructor() {
 
     fun mapDbModelToEntity(vehicleDbModel: VehicleDbModel) = Vehicle(
         brand = vehicleDbModel.brand,
-        motorPower = vehicleDbModel.motorPower,
+        motorPower = vehicleDbModel.motorPower.toString(),
         seats = vehicleDbModel.seats,
         image = vehicleDbModel.image,
         id = vehicleDbModel.id
@@ -16,7 +16,7 @@ class VehicleMapper @Inject constructor() {
 
     fun mapEntityToDbModel(vehicle: Vehicle) = VehicleDbModel(
         brand = vehicle.brand,
-        motorPower = vehicle.motorPower,
+        motorPower = vehicle.motorPower.toInt(),
         seats = vehicle.seats,
         image = vehicle.image,
         id = vehicle.id
