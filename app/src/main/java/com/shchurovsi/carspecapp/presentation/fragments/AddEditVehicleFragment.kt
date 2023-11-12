@@ -16,6 +16,7 @@ import com.shchurovsi.carspecapp.presentation.MainActivity
 import com.shchurovsi.carspecapp.presentation.ViewModelFactory
 import javax.inject.Inject
 
+
 class AddEditVehicleFragment : Fragment() {
 
     private var _binding: FragmentAddEditVehicleBinding? = null
@@ -32,9 +33,11 @@ class AddEditVehicleFragment : Fragment() {
 
     private var uri: Uri? = null
 
-    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
-        uri = it
-    }
+    private val galleryLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) {
+            uri = it
+            binding.imBrandImage.setImageURI(uri)
+        }
 
     override fun onAttach(context: Context) {
         (activity as MainActivity).appComponent.inject(this)
@@ -79,11 +82,10 @@ class AddEditVehicleFragment : Fragment() {
     }
 
     private fun launchEditMode() {
-
+        // in edit mode change the buttons name to 'update'
         binding.btSaveUpdate.text = getString(R.string.update)
 
         viewModel.getVehicleItem(vehicleItemId)
-
         binding.apply {
             viewModel.vehicleItem.observe(viewLifecycleOwner) {
                 titBrand.setText(it.brand)

@@ -2,11 +2,15 @@ package com.shchurovsi.carspecapp.presentation.fragments
 
 import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
@@ -21,10 +25,12 @@ import com.shchurovsi.carspecapp.presentation.MainActivity
 import com.shchurovsi.carspecapp.presentation.ViewModelFactory
 import com.shchurovsi.carspecapp.presentation.vehicleadapter.VehicleAdapter
 import javax.inject.Inject
+import kotlin.math.roundToInt
 
 class VehicleListFragment : Fragment() {
 
     private var _binding: FragmentVehicleListBinding? = null
+
     private val binding: FragmentVehicleListBinding
         get() = _binding ?: throw RuntimeException("ItemVehicleFragment is null!")
 
@@ -59,11 +65,15 @@ class VehicleListFragment : Fragment() {
         vehicleAdapter.setOnItemClickListener { vehicle ->
             showBrandImageDialog(vehicle)
         }
+
         setupSwipeListener()
     }
 
     private fun setupSwipeListener() {
-        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        val editIcon =
+            ResourcesCompat.getDrawable(requireContext().resources, R.drawable.ic_edit, null)
+
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
@@ -86,6 +96,41 @@ class VehicleListFragment : Fragment() {
                     }
                 }
             }
+
+            override fun onChildDraw(
+                canvas: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                val textMargin = resources.getDimension(R.dimen.text_margin)
+                    .roundToInt()
+                editIcon?.let {
+                    it.bounds = Rect(
+                        textMargin,
+                        viewHolder.itemView.top + textMargin + 16.dp,
+                        textMargin + it.intrinsicWidth,
+                        viewHolder.itemView.top + it.intrinsicHeight
+                                + textMargin + 16.dp
+                    )
+                }
+
+                if (dX > 0) editIcon?.draw(canvas)
+
+                super.onChildDraw(
+                    canvas,
+                    recyclerView,
+                    viewHolder,
+                    dX,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
+            }
+
         }).attachToRecyclerView(binding.recycler)
     }
 
@@ -106,6 +151,12 @@ class VehicleListFragment : Fragment() {
             vehicleAdapter.submitList(it)
         }
     }
+
+    private val Int.dp
+        get() = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            toFloat(), resources.displayMetrics
+        ).roundToInt()
 
     private fun launchFragment() {
         binding.myFAB.setOnClickListener {
