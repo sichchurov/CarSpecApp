@@ -3,8 +3,9 @@ package com.shchurovsi.carspecapp.domain.usecases
 import com.shchurovsi.carspecapp.domain.VehicleRepository
 import javax.inject.Inject
 
-class GetVehicleItemUseCase @Inject constructor(
+class GetVehicleListByMotorPowerUseCase @Inject constructor(
     private val repository: VehicleRepository
 ) {
-    suspend operator fun invoke(vehicleId: Int) = repository.getVehicleItem(vehicleId)
+    operator fun invoke(motorPowerString: Int) =
+        repository.getVehicleListByMotorPower(motorPowerString)
 }

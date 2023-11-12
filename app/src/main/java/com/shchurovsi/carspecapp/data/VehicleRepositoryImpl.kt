@@ -20,6 +20,14 @@ class VehicleRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun getVehicleListByMotorPower(motorPower: Int): LiveData<List<Vehicle>> {
+        return vehicleDao.getVehicleListByMotorPower(motorPower).map { vehicleDbModels ->
+            vehicleDbModels.map {
+                mapper.mapDbModelToEntity(it)
+            }
+        }
+    }
+
     override suspend fun addVehicleItem(vehicle: Vehicle) {
         vehicleDao.addVehicleItem(mapper.mapEntityToDbModel(vehicle))
     }

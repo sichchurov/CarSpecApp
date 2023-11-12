@@ -10,6 +10,8 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -27,6 +29,7 @@ import com.shchurovsi.carspecapp.presentation.vehicleadapter.VehicleAdapter
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
+
 class VehicleListFragment : Fragment() {
 
     private var _binding: FragmentVehicleListBinding? = null
@@ -37,6 +40,8 @@ class VehicleListFragment : Fragment() {
     private val vehicleAdapter by lazy {
         VehicleAdapter()
     }
+
+    private var power = 0
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -60,13 +65,14 @@ class VehicleListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecycler()
-        observe()
         launchFragment()
         vehicleAdapter.setOnItemClickListener { vehicle ->
             showBrandImageDialog(vehicle)
         }
-
         setupSwipeListener()
+        setupToggleListener()
+        setupSpinner()
+        setupObserve()
     }
 
     private fun setupSwipeListener() {
@@ -146,10 +152,66 @@ class VehicleListFragment : Fragment() {
         }
     }
 
-    private fun observe() {
-        viewModel.vehicleList.observe(viewLifecycleOwner) {
-            vehicleAdapter.submitList(it)
+    private fun setupToggleListener() = with(binding) {
+        filterMode.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.apply {
+                if (isChecked) toggle(true) else toggle(false)
+            }
         }
+    }
+
+    private fun setupSpinner() {
+        val spinner = binding.motorPowerSpinner
+        val options = resources.getStringArray(R.array.motor_power_values).toList()
+        val adapter = ArrayAdapter(
+            requireActivity(),
+            android.R.layout.simple_spinner_item,
+            options
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+
+        spinner.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?, position: Int, id: Long
+            ) {
+                try {
+                    power = options[position].replace(Regex("\\D+"), "").toInt()
+                    viewModel.filter(power)
+                } catch (_: NumberFormatException) {
+                    viewModel.filter(ZERO_POSITION)
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        }
+    }
+
+    private fun setupObserve() = with(binding) {
+
+        viewModel.isFilterToggled.observe(viewLifecycleOwner) { toggleIsOn ->
+            if (toggleIsOn) {
+                motorPowerSpinner.visibility = View.VISIBLE
+                viewModel.filter(power)
+
+                viewModel.power.observe(viewLifecycleOwner) {
+                    viewModel.vehicleListByMotorPower.observe(viewLifecycleOwner) {
+                        vehicleAdapter.submitList(it)
+                    }
+                }
+            } else {
+                motorPowerSpinner.visibility = View.GONE
+                viewModel.vehicleList.observe(viewLifecycleOwner) {
+                    vehicleAdapter.submitList(it)
+                }
+            }
+        }
+
+
     }
 
     private val Int.dp
@@ -180,5 +242,9 @@ class VehicleListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val ZERO_POSITION = 0
     }
 }

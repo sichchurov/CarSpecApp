@@ -1,11 +1,9 @@
 package com.shchurovsi.carspecapp.presentation.fragments
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.shchurovsi.carspecapp.R
 import com.shchurovsi.carspecapp.domain.entities.Vehicle
 import com.shchurovsi.carspecapp.domain.usecases.AddVehicleItemUseCase
 import com.shchurovsi.carspecapp.domain.usecases.EditVehicleItemUseCase
@@ -16,8 +14,7 @@ import javax.inject.Inject
 class AddEditVehicleViewModel @Inject constructor(
     private val addVehicleItemUseCase: AddVehicleItemUseCase,
     private val editVehicleItemUseCase: EditVehicleItemUseCase,
-    private val getVehicleItemUseCase: GetVehicleItemUseCase,
-    private val application: Application
+    private val getVehicleItemUseCase: GetVehicleItemUseCase
 ) : ViewModel() {
 
     private val _state = MutableLiveData<State>()
@@ -75,9 +72,9 @@ class AddEditVehicleViewModel @Inject constructor(
             viewModelScope.launch {
                 addVehicleItemUseCase.invoke(
                     Vehicle(
-                        application.getString(R.string.brand, brand),
-                        application.getString(R.string.motor_power, motorPower),
-                        application.getString(R.string.seats, seats),
+                        brand,
+                        motorPower,
+                        seats,
                         image
                     )
                 )
@@ -86,8 +83,8 @@ class AddEditVehicleViewModel @Inject constructor(
         }
     }
 
-    private fun parseField(inputField: String?): String {
-        return inputField?.trim() ?: EMPTY_STRING
+    private fun parseField(inputField: String): String {
+        return inputField.trim()
     }
 
     private fun validateFields(
@@ -114,9 +111,5 @@ class AddEditVehicleViewModel @Inject constructor(
 
     private fun finishWork() {
         _state.value = State.ShouldCloseScreenState
-    }
-
-    companion object {
-        private const val EMPTY_STRING = ""
     }
 }
