@@ -1,6 +1,5 @@
 package com.shchurovsi.carspecapp.presentation.fragments
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,8 +14,7 @@ import javax.inject.Inject
 class AddEditVehicleViewModel @Inject constructor(
     private val addVehicleItemUseCase: AddVehicleItemUseCase,
     private val editVehicleItemUseCase: EditVehicleItemUseCase,
-    private val getVehicleItemUseCase: GetVehicleItemUseCase,
-    private val application: Application
+    private val getVehicleItemUseCase: GetVehicleItemUseCase
 ) : ViewModel() {
 
     private val _state = MutableLiveData<State>()
@@ -113,9 +111,5 @@ class AddEditVehicleViewModel @Inject constructor(
 
     private fun finishWork() {
         _state.value = State.ShouldCloseScreenState
-    }
-
-    companion object {
-        private const val EMPTY_STRING = ""
     }
 }

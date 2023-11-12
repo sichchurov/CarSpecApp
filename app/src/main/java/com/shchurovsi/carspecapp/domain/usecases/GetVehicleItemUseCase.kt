@@ -1,7 +1,6 @@
 package com.shchurovsi.carspecapp.domain.usecases
 
 import com.shchurovsi.carspecapp.domain.VehicleRepository
-import com.shchurovsi.carspecapp.domain.entities.Vehicle
 import javax.inject.Inject
 
 class GetVehicleItemUseCase @Inject constructor(

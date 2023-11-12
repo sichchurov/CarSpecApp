@@ -1,11 +1,9 @@
 package com.shchurovsi.carspecapp.presentation
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.shchurovsi.carspecapp.VehicleApplication
 import com.shchurovsi.carspecapp.databinding.ActivityMainBinding
-import com.shchurovsi.carspecapp.presentation.fragments.VehicleListViewModel
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -20,8 +18,6 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel by viewModels<VehicleListViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponent.inject(this)
